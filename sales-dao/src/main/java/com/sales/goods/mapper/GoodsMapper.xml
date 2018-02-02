@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sales.goods.mapper.GoodsMapper">
+	<resultMap id="BaseResultMap" type="com.sales.goods.entity.Goods">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+		<result column="goods_sku" property="goodsSku" jdbcType="VARCHAR" />
+		<result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+		<result column="version" property="version" jdbcType="INTEGER" />
+		<result column="store_id" property="storeId" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, goods_sku, goods_name, goods_num, version, store_id
+	</sql>
+
+	<select id="get" resultMap="BaseResultMap" parameterType="com.sales.goods.entity.Goods">
+		select
+		<include refid="Base_Column_List" />
+		from t_goods
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 根据商品SKU查询商品信息 -->
+	<select id="getByGoodsSku" resultMap="BaseResultMap" parameterType="com.sales.goods.entity.Goods">
+		select
+		<include refid="Base_Column_List" />
+		from t_goods
+		where goods_sku = #{goodsSku,jdbcType=VARCHAR} 
+	</select>
+
+	<select id="listGoods" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_goods order by goods_num desc
+	</select>
+
+	<delete id="remove" parameterType="com.sales.goods.entity.Goods">
+		delete from t_goods
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<!-- 根据商品SKU删除商品 -->
+	<delete id="removeByGoodsSku" parameterType="com.sales.goods.entity.Goods">
+		delete from t_goods
+		where goods_sku = #{goodsSku,jdbcType=VARCHAR} 
+	</delete>
+
+	<insert id="save" parameterType="com.sales.goods.entity.Goods">
+		insert into t_goods
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="goodsSku != null">
+				goods_sku,
+			</if>
+			<if test="goodsName != null">
+				goods_name,
+			</if>
+			<if test="goodsNum != null">
+				goods_num,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="storeId != null">
+				store_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="goodsSku != null">
+				#{goodsSku,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsName != null">
+				#{goodsName,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsNum != null">
+				#{goodsNum,jdbcType=INTEGER},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=INTEGER},
+			</if>
+			<if test="storeId != null">
+				#{storeId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.sales.goods.entity.Goods">
+		update t_goods
+		<set>
+			<if test="goodsSku != null">
+				goods_sku = #{goodsSku,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsName != null">
+				goods_name = #{goodsName,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsNum != null">
+				goods_num = #{goodsNum,jdbcType=INTEGER},
+			</if>
+			<if test="version != null">
+				version = #{version,jdbcType=INTEGER},
+			</if>
+			<if test="storeId != null">
+				store_id = #{storeId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 更新商品库存 -->
+	<update id="updateGoodsNumByGoodsSku" parameterType="java.util.HashMap">
+		update t_goods set goods_num = goods_num - #{goodsNum}
+		where goods_num - #{goodsNum} >= 0 and goods_sku = #{goodsSku} 
+	</update>
+
+</mapper>

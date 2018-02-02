@@ -1,0 +1,4 @@
+com\sales\goods\mapper\GoodsMapper.class
+com\sales\store\entity\Store.class
+com\sales\goods\entity\Goods.class
+com\sales\store\mapper\StoreMapper.class

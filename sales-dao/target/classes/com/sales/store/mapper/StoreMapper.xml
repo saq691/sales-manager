@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sales.store.mapper.StoreMapper">
+	<resultMap id="BaseResultMap" type="com.sales.store.entity.Store">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="store_name" property="storeName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, store_name
+	</sql>
+	
+	<select id="get" resultMap="BaseResultMap" parameterType="com.sales.store.entity.Store">
+		select
+		<include refid="Base_Column_List" />
+		from t_store
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="remove" parameterType="com.sales.store.entity.Store">
+		delete from t_store
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="save" parameterType="com.sales.store.entity.Store">
+		insert into t_store
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="storeName != null">
+				store_name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="storeName != null">
+				#{storeName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="com.sales.store.entity.Store">
+		update t_store
+		<set>
+			<if test="storeName != null">
+				store_name = #{storeName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+</mapper>

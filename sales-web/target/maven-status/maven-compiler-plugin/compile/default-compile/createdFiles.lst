@@ -1,0 +1,6 @@
+com\sales\web\utils\MessageUtils.class
+com\sales\web\servlet\WeChatServlet.class
+com\sales\web\controller\GoodsController.class
+com\sales\web\utils\CheckUtils.class
+com\sales\web\controller\GoodsController$Customer.class
+com\sales\web\po\TextMeaasge.class
