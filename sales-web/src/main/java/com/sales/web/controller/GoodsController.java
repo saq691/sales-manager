@@ -1,16 +1,20 @@
 package com.sales.web.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Maps;
 import com.sales.common.model.ResponseData;
 import com.sales.common.page.Pager;
+import com.sales.goods.entity.Goods;
 import com.sales.goods.service.IGoodsService;
 
 /**
@@ -28,12 +32,31 @@ public class GoodsController {
 
 	// 商品代码
 	private String goodsSku = "k0006";
+	
+	@GetMapping("/{id}")
+	public Object get(@PathVariable("id") Integer id) {
+		String msg = "";
+		if (id == null) {
+			msg = "商品ID不能为空";
+			return msg;
+		}
+		Goods goods = new Goods();
+		goods.setId(id);
+		goods = goodsService.get(goods);
+		return goods;
+	}
+	
+	@GetMapping("/goods")
+	public Object goods() {
+		List<Goods> list = goodsService.listAll();
+		return list;
+	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	@GetMapping("listGoods")
+	@GetMapping("/goodsPager")
 	public Map<String, Object> getGoodsById(Pager pager) {
 		Map<String, Object> sqlParameter = Maps.newHashMap();
 		// 返回数据结果
@@ -41,13 +64,13 @@ public class GoodsController {
 		return result;
 	}
 
-	@GetMapping("/save")
+	@PostMapping("/save")
 	public String save() {
 		this.goodsService.saveGoods();
 		return "事务回滚成功！！！";
 	}
 
-	@GetMapping("seckill")
+	@PostMapping("/seckill")
 	public ResponseData testSeckillDB() {
 		for (int i = 0; i < 100; i++) {
 			Thread t = new Thread(new Customer(1));

@@ -21,9 +21,34 @@ public interface IGoodsService extends IBaseService<Goods, Integer> {
 	 * @return
 	 */
 	boolean saveGoods();
-	
+
 	/**
 	 * 根据sqlParameter设置参数查询分页方法
+	 * 
+	 * 返回数据对象格式： 
+	 * {
+	 *   "paginator":{
+	 *       "limit":10,
+	 *       "page": 1,
+	 *       "totalCount": 6,
+	 *       "offset": 0,
+	 *       "startRow": 1,
+	 *       "endRow": 6,
+	 *       "slider":[1],
+	 *       "firstPage": true,
+	 *       "lastPage": true,
+	 *       "nextPage": 1,
+	 *       "hasPrePage": false,
+	 *       "prePage": 1,
+	 *       "hasNextPage":false,
+	 *       "totalPages": 1
+	 *   }, 
+	 *   "items":[
+	 *       {
+	 *           "id":5
+	 *       }
+	 *   ] 
+	 * }
 	 * 
 	 * @param sqlParameter
 	 * @param pager
@@ -52,10 +77,12 @@ public interface IGoodsService extends IBaseService<Goods, Integer> {
 	/**
 	 * 更新商品库存,基于数据库乐观锁机制的秒杀 基于数据库乐观锁机制的秒杀,主要是通过控制数据版本修改数据
 	 * 
-	 * 优点: 简单、准确 可靠性高 
-	 * 缺点: 并发低,基于DDS机械硬盘的并发约为 700,HDS并发约为 300 这是一个平均值。
-	 * @param goodsSku 商品SKU
-	 * @param count 购买数量
+	 * 优点: 简单、准确 可靠性高 缺点: 并发低,基于DDS机械硬盘的并发约为 700,HDS并发约为 300 这是一个平均值。
+	 * 
+	 * @param goodsSku
+	 *            商品SKU
+	 * @param count
+	 *            购买数量
 	 * @return
 	 */
 	boolean updateGoodsNumByGoodsSku(String goodsSku, Integer count);

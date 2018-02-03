@@ -59,7 +59,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, Integer> implements
 		}
 		return false;
 	}
-	
+
 	@Override
 	public Map<String, Object> listGoods(Map<String, Object> sqlParameter, Pager pager) {
 		int currentPage = PagerEnum.PAGE.getValue();
@@ -91,7 +91,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, Integer> implements
 			Goods goods = goodsMapper.getByGoodsSku(goodsSku);
 			return goods;
 		} catch (BaseException e) {
-			logger.error("根据商品SKU查询商品信息查询失败-->{}", e.getMessage());
+			logger.error("根据商品SKU查询商品信息查询失败{}：", e.getMessage());
 			return null;
 		}
 	}
@@ -104,7 +104,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, Integer> implements
 			this.goodsMapper.removeByGoodsSku(goodsSku);
 			status = true;
 		} catch (BaseException e) {
-			logger.error("根据商品SKU删除商品异常-->{}", e.getMessage());
+			logger.error("根据商品SKU删除商品异常{}：", e.getMessage());
 			status = false;
 			throw e;
 		}
@@ -117,14 +117,14 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, Integer> implements
 		boolean status = false;
 		try {
 			Map<String, Object> sqlParamter = Maps.newHashMap();
-		    sqlParamter.put("goodsSku", goodsSku);
-		    sqlParamter.put("goodsNum", count);
+			sqlParamter.put("goodsSku", goodsSku);
+			sqlParamter.put("goodsNum", count);
 			Integer result = this.goodsMapper.updateGoodsNumByGoodsSku(sqlParamter);
 			if (result.equals(PagerEnum.LIMIT_1.getValue())) {
 				status = true;
 			}
 		} catch (BaseException e) {
-			logger.error("更新商品库存异常-->{}", e.getMessage());
+			logger.error("更新商品库存异常{}：", e.getMessage());
 			status = false;
 			throw e;
 		}
