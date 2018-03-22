@@ -7,7 +7,6 @@
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd ">
 
-	<!-- -->
 	<import resource="classpath*:/spring/spring-context.xml" />
 
 	<mvc:annotation-driven />
@@ -65,5 +64,22 @@
 		<property name="templateEngine" ref="templateEngine" />
 		<property name="characterEncoding" value="UTF-8" />
 	</bean>
+	
+		<!-- 使用国际化消息 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:messages/messages</value>
+			</list>
+		</property>
+		<property name="useCodeAsDefaultMessage" value="false" />   
+	</bean>
+	
+ 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">  
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>  
+        <!-- 如果不加,默认使用classpath下的 ValidationMessages.properties --> 
+        <property name="validationMessageSource" ref="messageSource"/>    
+    </bean>
 
 </beans>

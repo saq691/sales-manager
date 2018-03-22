@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>消息国际化</title>
+</head>
+<body>
+	<form action="/login" method="post">
+		<p>
+			<label>用户名：</label> <input type="text" id="username" name="username"
+				value="" /> <span
+				th:if="${#fields.hasErrors('loginModel.username')}"
+				th:errors="*{loginModel.username}"
+				th:text="${#fields.errors('loginModel.username')[0]}">Name
+				Error</span>
+		</p>
+		<p>
+			<label>用户名：</label> <input type="text" id="password" name="password"
+				value="" /> <span
+				th:if="${#fields.hasErrors('loginModel.password')}"
+				th:errors="*{loginModel.password}"
+				th:text="${#fields.errors('loginModel.password')[0]}">Name
+				Error</span>
+		</p>
+		<p>
+			<input type="submit" value="登录" />
+		</p>
+	</form>
+</body>
+</html>
