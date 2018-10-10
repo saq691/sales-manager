@@ -16,11 +16,33 @@
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
-	
+
+	<!-- 加载自定义监听器 -->
+	<listener>
+		<listener-class>com.longlian.support.web.listener.ServerHostConfigServletContextListener</listener-class>
+	</listener>
+
 	<!-- 内存泄漏监听器 -->
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
+
+	<!-- shiroFilter -->
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<async-supported>true</async-supported>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -78,7 +100,7 @@
 
 	<!-- 默认index.html -->
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>login.html</welcome-file>
 	</welcome-file-list>
 
 </web-app>

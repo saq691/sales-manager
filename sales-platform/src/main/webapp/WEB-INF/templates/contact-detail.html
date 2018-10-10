@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" th:with="res=${#servletContext.getAttribute('platform_servername')},images=${#servletContext.getAttribute('images_servername')}">
+<head>
+    <title>文章内容管理系统 - 联系详情信息</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit" />
+	<meta name="viewport" content="width=320,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" th:href="${res}+'images/favicon.ico'" />
+    <link rel="stylesheet" type="text/css" th:href="${res}+'css/layout.css'"/>
+</head>
+<body>
+<div id="wrapper">
+    
+    <!-- menu begin -->
+	<div th:replace="common/menu(selected=contact,type=contactlist)"></div>
+	<!-- menu end -->
+	
+    <div id="page-wrapper">
+    
+	    <!-- header begin -->
+		<div th:replace="common/header"></div>
+		<!-- header end -->
+		
+        <div class="wrapper wrapper-content ui-scroll">
+            <!-- 返回联系管理列表 -->
+            
+	        <div class="ibox-content content-mb">
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">姓名：</label>
+	                <div class="col-sm-10 div-h div-pl" th:text="${contact.name}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">主题：</label>
+	                <div class="col-sm-10 div-h div-pl" th:text="${contact.theme}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">邮箱：</label>
+	                <div class="col-sm-10 div-h div-pl" th:text="${contact.email}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">电话：</label>
+	                <div class="col-sm-10 div-h div-pl" th:text="${contact.phone}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">公司：</label>
+	                <div class="col-sm-10 div-h div-pl" th:text="${contact.company}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">内容：</label>
+	                <div class="col-sm-10 div-h div-pl" th:text="${contact.content}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">创建时间：</label>
+	                <div class="col-sm-10 div-h div-pl" th:text="${#dates.format(contact.createTime,'yyyy-MM-dd HH:mm:ss')}"></div>
+	            </div>
+	        </div>
+        </div>
+    </div>
+    
+    <!-- footer begin -->
+	<div th:replace="common/footer"></div>
+	<!-- footer end -->
+	
+    <script type="text/javascript" th:src="${res}+'js/jquery.js'"></script>
+    <script type="text/javascript" th:src="${res}+'js/common.js'"></script>
+</div>
+</body>
+</html>

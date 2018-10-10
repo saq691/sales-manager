@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" th:with="res=${#servletContext.getAttribute('platform_servername')},images=${#servletContext.getAttribute('images_servername')}">
+<head>
+    <title>文章内容管理系统 - 合作详情信息</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit" />
+	<meta name="viewport" content="width=320,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" th:href="${res}+'images/favicon.ico'" />
+    <link rel="stylesheet" type="text/css" th:href="${res}+'css/layout.css'"/>
+</head>
+<body>
+<div id="wrapper">
+    
+    <!-- menu begin -->
+	<div th:replace="common/menu(selected=cooperate,type=cooperatelist)"></div>
+	<!-- menu end -->
+	
+    <div id="page-wrapper">
+    
+	    <!-- header begin -->
+		<div th:replace="common/header"></div>
+		<!-- header end -->
+		
+        <div class="wrapper wrapper-content ui-scroll">
+            <!-- 返回合作管理列表 -->
+            
+	        <div class="ibox-content content-mb">
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">姓名：</label>
+	                <div class="col-sm-10 div-h" th:text="${cooperate.name}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">公司：</label>
+	                <div class="col-sm-10 div-h" th:text="${cooperate.company}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">邮箱：</label>
+	                <div class="col-sm-10 div-h" th:text="${cooperate.email}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">电话：</label>
+	                <div class="col-sm-10 div-h" th:text="${cooperate.phone}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">网址：</label>
+	                <div class="col-sm-10 div-h" th:text="${cooperate.siteUrl}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">行业：</label>
+	                <div class="col-sm-10 div-h" th:text="${cooperate.industry}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">内容：</label>
+	                <div class="col-sm-10 div-h" th:text="${cooperate.content}"></div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">创建时间：</label>
+	                <div class="col-sm-10 div-h" th:text="${#dates.format(cooperate.createTime,'yyyy-MM-dd HH:mm:ss')}"></div>
+	            </div>
+	        </div>
+        </div>
+    </div>
+    
+    <!-- footer begin -->
+	<div th:replace="common/footer"></div>
+	<!-- footer end -->
+	
+    <script type="text/javascript" th:src="${res}+'js/jquery.js'"></script>
+    <script type="text/javascript" th:src="${res}+'js/common.js'"></script>
+</div>
+</body>
+</html>

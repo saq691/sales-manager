@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" th:with="res=${#servletContext.getAttribute('platform_servername')},images=${#servletContext.getAttribute('images_servername')}">
+<head>
+    <title>文章内容管理系统 - 添加师资</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit" />
+	<meta name="viewport" content="width=320,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" th:href="${res}+'images/favicon.ico'" />
+    <link rel="stylesheet" type="text/css" th:href="${res}+'css/layout.css'"/>
+    <link rel="stylesheet" type="text/css" th:href="${res}+'css/webuploader.css'"/>
+    <link rel="stylesheet" type="text/css" th:href="${res}+'css/ui-dialog.custom.css'"/>
+</head>
+<body>
+<div id="wrapper">
+    
+    <!-- menu begin -->
+	<div th:replace="common/menu(selected=teacher,type=teacherlist)"></div>
+	<!-- menu end -->
+	
+    <div id="page-wrapper">
+    
+	    <!-- header begin -->
+		<div th:replace="common/header"></div>
+		<!-- header end -->
+		
+        <div class="wrapper wrapper-content ui-scroll">
+            <!-- 返回师资管理列表 -->
+            
+	        <div class="ibox-content content-mb">
+	            <form th:action="${res}+'teacher/saveOrUpdate'" method="post">
+	                <input type="hidden" name="id" th:value="${teacher ne null ? teacher.id : ''}" />
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">姓名：</label>
+	                    <div class="col-sm-10">
+	                        <input type="text" class="form-control" name="name" th:value="${teacher ne null ? teacher.name : ''}" />
+	                        <span class="help-block m-b-none">请输入姓名</span>
+	                    </div>
+	                </div>
+	                <div class="hr-line-dashed"></div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">头像：</label>
+	                    <div class="col-sm-10">
+	                        <input type="hidden" name="avatar" id="imgAvatarValue" th:value="${teacher ne null ? teacher.avatar : ''}"/>
+	                    	<div class="item-logo show-logo" id="showAvatar"><img th:src="${(teacher ne null && (teacher.avatar ne null && teacher.avatar ne '')) ? images+teacher.avatar : res+'images/image.png'}" id="imgAvatar"/></div>
+					        <div class="fl img-hint">
+					    		<p class="item-hint">支持JPG，PNG格式</p>
+	                            <p class="item-hint">图片尺寸260*150，建议小于2M</p>
+					    		<div class="clearfix">
+					    		    <div class="wu-logo"><div class="btns"><div id="avatarpicker">选择文件</div></div></div>
+					    		</div>
+					    	</div>
+	                    </div>
+	                </div>
+	                <div class="hr-line-dashed"></div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">学校：</label>
+	                    <div class="col-sm-10">
+	                        <input type="text" class="form-control" name="college" th:value="${teacher ne null ? teacher.college : ''}" />
+	                        <span class="help-block m-b-none">请输入学校，例如：清华大学</span>
+	                    </div>
+	                </div>
+	                <div class="hr-line-dashed"></div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">学历：</label>
+	                    <div class="col-sm-10">
+	                        <input type="text" class="form-control" name="education" th:value="${teacher ne null ? teacher.education : ''}" />
+	                        <span class="help-block m-b-none">请输入学历，例如：硕士、博士等</span>
+	                    </div>
+	                </div>
+	                <div class="hr-line-dashed"></div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">排序：</label>
+	                    <div class="col-sm-10">
+	                        <input type="text" class="form-control" name="seq" th:value="${teacher ne null ? teacher.seq : ''}" />
+	                        <span class="help-block m-b-none">请输入排序，只能是数字</span>
+	                    </div>
+	                </div>
+	                <div class="hr-line-dashed"></div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">详细介绍：</label>
+	                    <div class="col-sm-10">
+	                        <textarea id="myConXheditor" name="intro" rows="8" cols="120" style="width:780px;height:300px;" th:utext="${teacher ne null ? teacher.intro : ''}"></textarea>
+	                        <span class="help-block m-b-none">请输入详细介绍</span>
+	                    </div>
+	                </div>
+	                <div class="hr-line-dashed"></div>
+	                <div class="form-group">
+	                    <div class="col-sm-4 col-sm-offset">
+	                        <button class="btn" type="submit">保存内容</button>
+	                        <button class="btn btn-white" type="reset">取消</button>
+	                    </div>
+	                </div>
+	            </form>
+	        </div>
+        </div>
+    </div>
+    
+    <!-- footer begin -->
+	<div th:replace="common/footer"></div>
+	<!-- footer end -->
+	
+    <script type="text/javascript" th:src="${res}+'js/jquery.js'"></script>
+    <script type="text/javascript" th:src="${res}+'js/artDialog/dialog-min.js'"></script>
+    <script type="text/javascript" th:src="${res}+'js/webuploader/webuploader.withoutimage.min.js'"></script>
+    <script type="text/javascript" th:src="${res}+'js/common.js'"></script>
+	<script type="text/javascript" th:src="${res}+'js/kindeditor/kindeditor-all.js'" charset="utf-8"></script>
+    <script type="text/javascript" th:src="${res}+'js/kindeditor/lang/zh-CN.js'" charset="utf-8"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	// 富文本编辑器
+        var editor = KindEditor.create('#myConXheditor', {
+	        resizeType:1,
+	        uploadJson:'[[${res}]]upload/fileUpload',
+	        shadowMode:false,
+	        filterMode:false,
+	        allowPreviewEmoticons: false, 
+	        allowImageUpload: true,
+	        allowImageRemote: false,
+	        allowFlashUpload: false,
+			items:['fontname','fontsize','|','forecolor','hilitecolor','bold','italic','underline','removeformat','|','justifyleft','justifycenter','justifyright','insertorderedlist','insertunorderedlist','|','emoticons','image','link'],
+	        afterCreate:function () {
+		        $(this.edit.iframe.get(0).contentWindow.document).keydown(function (e) {
+		            if ((e.ctrlKey || e.metaKey) && e.which == 13 && !e.shiftKey && !e.altKey) {
+		                $("#myConXheditor").parent().submit();
+		            }
+		        });
+	        },
+	        afterChange:function () {
+	            this.sync();
+	        }
+        });
+    });
+	var uploader=WebUploader.create({
+		accept:{title:'Images',extensions:'gif,jpg,jpeg,bmp,png',mimeTypes:'image/*'},
+		swf:'[[${res}]]js/webuploader/Uploader.swf',
+	    server:'[[${res}]]upload/fileUpload',
+	    pick:{id:'#avatarpicker',label:'上传图片'},
+	    resize:false,
+	    fileNumLimit:1,
+	    chunked:false,
+	    auto:true
+	});
+    uploader.onUploadError=function(file,reason){
+        var d=dialog({title:'提示',skin:'auto-warn',content:'系统异常，上传失败！'}).show();
+        setTimeout(function(){d.close().remove();},2000);
+    	uploader.reset();
+    }
+    uploader.onUploadSuccess=function(file,response){
+    	if(response.error==0){
+    		$('#imgAvatarValue').val(response.key);
+    		$('#imgAvatar').attr('src',response.url);
+    	}
+    	uploader.reset();
+    	var skin=response.error==0?'auto-close':'auto-warn';
+    	var msg=response.error==0?'上传成功':'系统异常，上传失败！';
+    	var d=dialog({title:'提示',skin:skin,content:msg}).show();
+    	setTimeout(function(){d.close().remove();},2000);
+    }
+    </script>
+</div>
+</body>
+</html>

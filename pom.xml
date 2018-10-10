@@ -13,6 +13,8 @@
 		<module>sales-support-web</module>
 		<module>sales-platform</module>
 		<module>sales-web</module>
+		<module>sales-wap</module>
+		<module>sales-task</module>
 	</modules>
 
 	<properties>
@@ -31,6 +33,7 @@
 		<sales-support-web.version>1.0-SNAPSHOT</sales-support-web.version>
 		<sales-platform.version>1.0-SNAPSHOT</sales-platform.version>
 		<sales-web.version>1.0-SNAPSHOT</sales-web.version>
+		<sales-wap.version>1.0-SNAPSHOT</sales-wap.version>
 	</properties>
 
 	<dependencies>

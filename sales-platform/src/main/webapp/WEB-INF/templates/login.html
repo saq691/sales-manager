@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" th:with="res=${#servletContext.getAttribute('platform_servername')},images=${#servletContext.getAttribute('images_servername')}">
+<head>
+    <title>文章内容管理系统 - 登录中心</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit" />
+	<meta name="viewport" content="width=320,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" th:href="${res}+'images/favicon.ico'" />
+    <link rel="stylesheet" type="text/css" th:href="${res}+'css/layout.css'"/>
+</head>
+<body class="gray-bg">
+    <div class="middle-box text-center center">
+	    <h3>欢迎使用文章内容管理系统</h3>
+	    <form class="form" method="post" action="toLogin">
+	        <div class="form-group">
+	            <input type="text" name="username" class="form-control" placeholder="用户名" required="true" th:value="${loginModel ne null ? loginModel.username : ''}" />
+	        </div>
+	        <div class="form-group">
+	            <input type="password" name="password" class="form-control" placeholder="密码" required="true" />
+	        </div>
+	        <div id="loginMsg" class="login-msg" th:text="${message ne null ? message : ''}"></div>
+	        <button type="submit" class="btn btn-primary">登 录</button>
+	    </form>
+    </div>
+</body>
+</html>

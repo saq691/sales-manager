@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" th:with="res=${#servletContext.getAttribute('platform_servername')},images=${#servletContext.getAttribute('images_servername')}">
+<head>
+    <title>文章内容管理系统 - banner图列表</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit" />
+	<meta name="viewport" content="width=320,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<link rel="Shortcut Icon" th:href="${res}+'images/favicon.ico'" />
+	<link rel="stylesheet" type="text/css" th:href="${res}+'css/layout.css'"/>
+	<link rel="stylesheet" type="text/css" th:href="${res}+'css/ui-dialog.custom.css'"/>
+</head>
+<body>
+<div id="wrapper">
+    
+    <!-- menu begin -->
+	<div th:replace="common/menu(selected=banner,type=bannerlist)"></div>
+	<!-- menu end -->
+	
+    <div id="page-wrapper" class="dashbard-1">
+    
+	    <!-- header begin -->
+		<div th:replace="common/header"></div>
+		<!-- header end -->
+		
+        <div class="wrapper wrapper-content">
+	        <div class="ibox-content list-content">
+	            <div class="row list-wapper">
+	                <div class="col-sm-3">
+	                    <div class="input-group">
+	                        <input id="bannerType" name="bannerType" type="text" placeholder="请输入标签" class="input-sm form-control serach" value="" />
+	                        <span class="input-group-btn"><button id="searchBtn" type="button" class="btn btn-sm">搜索</button></span>
+	                    </div>
+	                </div>
+	            </div>
+	            <!-- begin table-content -->
+	            <div class="table-content">
+	                <table class="table table-bordered">
+	                
+	                    <thead>
+	                        <tr>
+		                        <th width="10px"><input type="checkbox" value="" class="i-checks" name="allListValue" /></th>
+		                        <th>图片</th>
+		                        <th>标题</th>
+		                        <th width="70px">是否显示</th>
+		                        <th width="132px">创建时间</th>
+		                        <th width="200px">操作</th>
+	                        </tr>
+	                    </thead>
+	                    
+	                    <tbody id="dataList">
+	                        <tr th:if="${not #lists.isEmpty(result.items)}" th:each="item,itemStat:${result.items}">
+	                            <td><input type="checkbox" th:value="${item.id}" class="i-checks" name="listValue" /></td>
+	                            <td align="center"><img th:src="${images+item.images}" alt="" width="260px" height="150px" style="border:1px solid #ddd;" /></td>
+	                            <td><span class="pie" th:text="${item.title}"></span></td>
+	                            <td align="center" th:text="${item.visibled eq 0 ? '隐藏':'显示'}"></td>
+	                            <td align="center" th:text="${#dates.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+	                            <td align="center">
+	                                <a href="javascript:;" class="visibled" th:id="${item.id}" th:classappend="${item.visibled eq 0 ? 'aother showStatus' : 'aother hideStatus'}" th:text="${item.visibled eq 0 ? '显示':'隐藏'}"></a>
+		                            <a th:href="${res}+'banner/detail/'+${item.id}" class="aother update" th:id="${item.id}">修改</a>
+	                            </td>
+	                        </tr>
+	                        <tr th:if="${#lists.isEmpty(result.items)}">
+	                            <td colspan="6" class="no-data">暂无数据......</td>
+	                        </tr>
+	                    </tbody>
+	                    
+	                    <tfoot>
+		                    <tr>
+			                    <td colspan="6">
+						            <div class="edit-box">
+							            <ul id="editBox">
+								            <li><a id="delete" href="javascript:;" class="delete">删除</a></li>
+								            <li><a th:href="${res}+'banner/add.html'">添加</a></li>
+							            </ul>
+						            </div>
+						            <!-- begin pager -->
+						            <div class="pager">
+						                <ul>
+						                    <li><div class="pager-jump">共<label class="omit" th:text="${result.paginator.totalCount}"></label>条</div></li>
+						                    <li th:if="${result.paginator.hasPrePage}"><a class="prev" th:href="${res}+'banner/list?currentPage='+${result.paginator.prePage}">«</a></li>
+						                    <li th:each="page:${result.paginator.slider}"><a th:href="${res}+'banner/list?currentPage='+${page}" th:text="${page}" th:classappend="${result.paginator.page eq page ? 'current' : ''}"></a></li>
+						                    <li th:if="${result.paginator.hasNextPage}"><a class="next" th:href="${res}+'banner/list?currentPage='+${result.paginator.nextPage}">»</a></li>
+						                    <li><div class="pager-jump">到第&nbsp;<input autocomplete="off" id="currentPage" name="currentPage" th:value="${result.paginator.page}" type="text" />&nbsp;页</div><a href="javascript:;" class="btn" id="goBtn">GO</a></li>
+						                </ul>
+							        </div>
+							        <!-- end pager -->
+			                    </td>
+		                    </tr>
+	                    </tfoot>
+	                    
+	                </table>
+	            </div>
+	            <!-- end table-content -->
+	        </div>
+        </div>
+    </div>
+    
+    <!-- footer begin -->
+	<div th:replace="common/footer"></div>
+	<!-- footer end -->
+	
+    <script type="text/javascript" th:src="${res}+'js/jquery.js'"></script>
+    <script type="text/javascript" th:src="${res}+'js/artDialog/dialog-min.js'"></script>
+    <script type="text/javascript" th:src="${res}+'js/common.js'"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	$('#dataList').on('click','.visibled',function(){
+    		$.ajax({
+    			type:'post',
+    			url:'[[${res}]]banner/visible/'+this.id,
+    			dataType:'json',
+    			success:function(data){
+    				var skin = data.status?'auto-close':'auto-warn';
+    				var d=dialog({title:validateMsg.CHECK_TITLE,skin:skin,content:data.msg}).show();
+    				setTimeout(function(){if(data.status){window.location.reload();}d.close().remove();},1000);
+    				return false;
+    			}
+    		});
+    	});
+    	$('#delete').on('click',function(){
+    		var temp=$('#dataList').find('input[name="listValue"]');
+    		var chNum=temp.filter(':checked').length;
+    		var ids=[];
+    		if(!chNum){
+    			dialog({title:validateMsg.CHECK_TITLE,skin:'auto-warn',content:validateMsg.CHECK_MIN_VALUE,quickClose:true}).show();
+    			return false;
+    		}
+    		temp.filter(':checked').each(function(){
+    			ids.push($(this).val());
+    		});
+    		$.ajax({
+    			type:'post',
+    			url:'[[${res}]]banner/delete',
+    			data:{'ids':ids.join(",")},
+    			dataType:'json',
+    			success:function(data){
+    				var skin = data.status?'auto-close':'auto-warn';
+    				var d=dialog({title:validateMsg.CHECK_TITLE,skin:skin,content:data.msg}).show();
+    				setTimeout(function(){if(data.status){window.location.reload();}d.close().remove();},1000);
+    				return false;
+    			}
+    		});
+    	});
+    	$('#searchBtn').click(function(){
+    		var lastParams={};
+    		var keywords=$.trim($('#keywords').val());
+    		if(keywords!=''){lastParams['keywords']=keywords;}
+    	    var flag=isEmptyObj(lastParams);
+    	    if(flag){window.open('[[${res}]]banner/list.html?'+$.param(lastParams),'_self');}
+    	});
+    	$('#goBtn').click(function(){
+    		var lastParams={};
+    		var currentPage=$.trim($('#currentPage').val());
+    		if(currentPage!=''){lastParams['currentPage']=currentPage;}
+    	    var flag=isEmptyObj(lastParams);
+    	    if(flag){window.open('[[${res}]]banner/list.html?'+$.param(lastParams),'_self');}
+    	});
+    });
+    </script>
+</div>
+</body>
+</html>

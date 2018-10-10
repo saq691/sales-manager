@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>小金库 - 惠麦商城！</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Cache-Control" content="max-age=180" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no, viewport-fit=cover" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="惠麦商城是一家F2C2M模式的电子商务平台，旨在通过用户直连制造商（Customer TO Manufactory），砍掉传统零售中的所有加价环节，使消费者以出厂成本价就能买到好品质的产品。" />
+	<meta name="Keywords" content="惠麦商城，网上购物，F2C2M电子商城，超实惠，好品质，一线工厂" />
+	<link rel="stylesheet" href="lib/weui.min.css" />
+	<link rel="stylesheet" href="css/jquery-weui.css" />
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+<body ontouchstart>
+
+	<!-- header 导航主体 -->
+	<div th:replace="common/header(headerTitle='小金库')"></div>
+	
+	<div class="weui-content">
+		<div class="weui-panel">
+			<div class="weui-panel__hd">账户余额</div>
+			<div class="weui-panel__bd">
+				<div class="weui-media-box weui-media-box_text">
+					<h4 class="weui-media-box__title">&yen;&nbsp;<em class="num">800.0</em></h4>
+					<p class="weui-media-box__desc">账户余额由银行卡充值或者惠麦商城发售的充值，可以购买商品和提现。</p>
+					<ul class="weui-media-box__info">
+						<li class="weui-media-box__info__meta">可提现金额：&yen;&nbsp;<em class="num">300.0</em></li>
+						<li class="weui-media-box__info__meta weui-media-box__info__meta_extra">返现金额：&yen;&nbsp;<em class="num">500.0</em></li>
+					</ul>
+				</div>
+			</div>
+			<div class="weui-panel__ft">
+				<a href="chongzhi.html" class="weui-cell weui-cell_access weui-cell_link">
+					<div class="weui-cell__bd">余额充值</div>
+					<span class="weui-cell__ft"></span>
+				</a>
+			</div>
+			<div class="weui-panel__ft">
+				<a href="tixian.html" class="weui-cell weui-cell_access weui-cell_link">
+					<div class="weui-cell__bd">余额提现</div>
+					<span class="weui-cell__ft"></span>
+				</a>
+			</div>
+		</div>
+		<div class="weui-panel">
+			<div class="weui-panel__hd">待返还金额</div>
+			<div class="weui-panel__bd">
+				<div class="weui-media-box weui-media-box_text">
+					<h4 class="weui-media-box__title">&yen;&nbsp;<em class="num">500.0</em></h4>
+					<p class="weui-media-box__desc">待返还金额为惠麦商城发布的充值返现活动所产生，可购买商品不能提现。</p>
+					<ul class="weui-media-box__info">
+						<li class="weui-media-box__info__meta">每月返现&yen;&nbsp;<em class="num">100.0</em></li>
+						<li class="weui-media-box__info__meta weui-media-box__info__meta_extra">共<em class="num">5</em>个月</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="weui-panel">
+			<div class="weui-panel__hd">蓝豆</div>
+			<div class="weui-panel__bd">
+				<div class="weui-media-box weui-media-box_text">
+					<h4 class="weui-media-box__title"><em class="num">165</em>个</h4>
+					<p class="weui-media-box__desc">购买商品，评价订单以及参加商城的活动可获得，蓝豆可以直接购买商品。</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="lib/jquery-2.1.4.js"></script>
+	<script type="text/javascript" src="lib/fastclick.js"></script>
+	<script type="text/javascript" src="js/jquery.Spinner.js"></script>
+	<script type="text/javascript" src="js/jquery-weui.js"></script>
+	<script type="text/javascript" src="js/common/base.js"></script>
+</body>
+</html>

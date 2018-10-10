@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" th:with="res=${#servletContext.getAttribute('platform_servername')},images=${#servletContext.getAttribute('images_servername')}">
+<head>
+    <title>文章内容管理系统 - 添加banner图</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit" />
+	<meta name="viewport" content="width=320,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Shortcut Icon" th:href="${res}+'images/favicon.ico'" />
+    <link rel="stylesheet" type="text/css" th:href="${res}+'css/layout.css'"/>
+    <link rel="stylesheet" type="text/css" th:href="${res}+'css/webuploader.css'"/>
+    <link rel="stylesheet" type="text/css" th:href="${res}+'css/ui-dialog.custom.css'"/>
+</head>
+<body>
+<div id="wrapper">
+    
+    <!-- menu begin -->
+	<div th:replace="common/menu(selected=banner,type=bannerlist)"></div>
+	<!-- menu end -->
+	
+    <div id="page-wrapper">
+    
+	    <!-- header begin -->
+		<div th:replace="common/header"></div>
+		<!-- header end -->
+		
+        <div class="wrapper wrapper-content ui-scroll">
+            <!-- 返回banner图管理列表 -->
+            
+	        <div class="ibox-content content-mb">
+	            <form th:action="${res}+'banner/saveOrUpdate'" method="post">
+	                <input type="hidden" name="id" th:value="${banner ne null ? banner.id : ''}" />
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">标题：</label>
+	                    <div class="col-sm-10">
+	                        <input type="text" class="form-control" name="title" th:value="${banner ne null ? banner.title : ''}" />
+	                        <span class="help-block m-b-none">请输入标题</span>
+	                    </div>
+	                </div>
+	                <div class="hr-line-dashed"></div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">图片：</label>
+	                    <div class="col-sm-10">
+	                        <input type="hidden" name="images" id="imgLogoValue" th:value="${banner ne null ? banner.images : ''}"/>
+	                    	<div class="item-logo show-logo" id="showLogo"><img th:src="${(banner ne null && (banner.images ne null && banner.images ne '')) ? images+banner.images : res+'images/image.png'}" id="imgLogo"/></div>
+					        <div class="fl img-hint">
+					    		<p class="item-hint">支持JPG，PNG格式</p>
+	                            <p class="item-hint">图片尺寸宽1920px，高最小500px，建议小于2M</p>
+					    		<div class="clearfix">
+					    		    <div class="wu-logo"><div class="btns"><div id="logopicker">选择文件</div></div></div>
+					    		</div>
+					    	</div>
+	                    </div>
+	                </div>
+	                <div class="hr-line-dashed"></div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">描述：</label>
+	                    <div class="col-sm-10">
+	                        <textarea name="description" rows="8" cols="120" class="text-digest" th:text="${banner ne null ? banner.description : ''}"></textarea>
+	                        <span class="help-block m-b-none">请输入描述</span>
+	                    </div>
+	                </div>
+	                <div class="hr-line-dashed"></div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">跳转链接：</label>
+	                    <div class="col-sm-10">
+	                        <input type="text" class="form-control" name="urlLink" th:value="${banner ne null ? banner.urlLink : ''}" />
+	                        <span class="help-block m-b-none">请输入描述</span>
+	                    </div>
+	                </div>
+	                <div class="hr-line-dashed"></div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">排序：</label>
+	                    <div class="col-sm-10">
+	                        <input type="text" class="form-control" name="seq" th:value="${banner ne null ? banner.seq : ''}" />
+	                        <span class="help-block m-b-none">请输入排序，只能是正整数</span>
+	                    </div>
+	                </div>
+	                <div class="hr-line-dashed"></div>
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label">banner图类型：</label>
+	                    <div class="col-sm-10">
+		                    <select name="bannerType" class="select-control">
+			                    <option th:each="bannerType:${bannerTypes}" th:selected="${banner ne null ? (#strings.equals(bannerType.id, banner.bannerType) ? true : false) : false}" th:text="${bannerType.name}" th:value="${bannerType.id}"></option>
+		                    </select>
+	                    </div>
+	                </div>
+	                <div class="hr-line-dashed"></div>
+	                <div class="form-group">
+	                    <div class="col-sm-4 col-sm-offset">
+	                        <button class="btn" type="submit">保存内容</button>
+	                        <button class="btn btn-white" type="reset">取消</button>
+	                    </div>
+	                </div>
+	            </form>
+	        </div>
+        </div>
+    </div>
+    
+    <!-- footer begin -->
+	<div th:replace="common/footer"></div>
+	<!-- footer end -->
+	
+    <script type="text/javascript" th:src="${res}+'js/jquery.js'"></script>
+    <script type="text/javascript" th:src="${res}+'js/artDialog/dialog-min.js'"></script>
+    <script type="text/javascript" th:src="${res}+'js/webuploader/webuploader.withoutimage.min.js'"></script>
+    <script type="text/javascript" th:src="${res}+'js/common.js'"></script>
+    <script type="text/javascript">
+	var uploader=WebUploader.create({
+		accept:{title:'Images',extensions:'gif,jpg,jpeg,bmp,png',mimeTypes:'image/*'},
+		swf:'[[${res}]]js/webuploader/Uploader.swf',
+	    server:'[[${res}]]upload/fileUpload',
+	    pick:{id:'#logopicker',label:'上传图片'},
+	    resize:false,
+	    fileNumLimit:1,
+	    chunked:false,
+	    auto:true
+	});
+    uploader.onUploadError=function(file,reason){
+        var d=dialog({title:'提示',skin:'auto-warn',content:'系统异常，上传失败！'}).show();
+        setTimeout(function(){d.close().remove();},2000);
+    	uploader.reset();
+    }
+    uploader.onUploadSuccess=function(file,response){
+    	if(response.error==0){
+    		$('#imgLogoValue').val(response.key);
+    		$('#imgLogo').attr('src',response.url);
+    	}
+    	uploader.reset();
+    	var skin=response.error==0?'auto-close':'auto-warn';
+    	var msg=response.error==0?'上传成功':'系统异常，上传失败！';
+    	var d=dialog({title:'提示',skin:skin,content:msg}).show();
+    	setTimeout(function(){d.close().remove();},2000);
+    }
+    </script>
+</div>
+</body>
+</html>

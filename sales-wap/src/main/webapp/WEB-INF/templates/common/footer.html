@@ -1,0 +1,20 @@
+<div class="weui-tabbar wy-foot-menu" xmlns:th="http://www.thymeleaf.org">
+	<a th:href="'/index'" class="weui-tabbar-item" th:classappend="${selected eq 'index' ? 'weui-bar-item-on' : ''}">
+		<i class="icon-home"></i>
+		<p class="weui-tabbar-label">首页</p>
+	</a>
+	<a th:href="'/category'" class="weui-tabbar-item" th:classappend="${selected eq 'category' ? 'weui-bar-item-on' : ''}">
+		<i class="icon-category"></i>
+		<p class="weui-tabbar-label">分类</p>
+	</a>
+	<a th:href="'/shopcart'" class="weui-tabbar-item">
+		<i class="icon-cart">
+			<span class="weui-badge" style="position:absolute;top:-2px;right:-18px;">8</span>
+		</i>
+		<p class="weui-tabbar-label">购物车</p>
+	</a>
+	<a th:href="'/account/mine'" class="weui-tabbar-item" th:classappend="${selected eq 'my' ? 'weui-bar-item-on' : ''}">
+		<i class="icon-my"></i>
+		<p class="weui-tabbar-label">我的</p>
+	</a>
+</div>

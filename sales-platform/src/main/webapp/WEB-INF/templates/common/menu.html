@@ -1,0 +1,63 @@
+<nav xmlns:th="http://www.thymeleaf.org" class="navbar-default navbar-static-side" role="navigation">
+	<div class="nav-header">
+	    <div class="profile-element">
+	     <span class="text-xs"><img alt="image" class="img-circle" th:src="${res}+'images/head.png'" /></span>
+	        <p class="text-xs">超级管理员，欢迎您！！！</p>
+	    </div>
+	</div>
+    <div id="navMenu" class="nav-menu sidebar-collapse ui-scroll">
+        <ul class="nav">
+            <li><a th:href="${res}+'index.html'"><i class="icon-home"></i><span class="nav-label">主页</span></a></li>
+            <li>
+	            <a href="javascript:;"><i class="icon-eassy"></i><span class="nav-label">文章管理</span><label class="icon-arrow"></label></a>
+	            <ul th:class="${selected eq 'essay'} ? show : hide">
+		            <li><a th:class="${type eq 'essaylist'} ? 'selected'" th:href="${res}+'essay/list'">所有文章</a></li>
+		            <li><a th:class="${type eq 'essayTypelist'} ? 'selected'" th:href="${res}+'essayType/list'">文章分类</a></li>
+	            </ul>
+            </li>
+            <li>
+	            <a href="javascript:;"><i class="icon-upload"></i><span class="nav-label">banner管理</span><label class="icon-arrow"></label></a>
+	            <ul th:class="${selected eq 'banner'} ? show : hide">
+		            <li><a th:class="${type eq 'bannerlist'} ? 'selected'" th:href="${res}+'banner/list'">banner图列表</a></li>
+	            </ul>
+            </li>
+            <li>
+	            <a href="javascript:;"><i class="icon-cooperate"></i><span class="nav-label">合作管理</span><label class="icon-arrow"></label></a>
+	            <ul th:class="${selected eq 'cooperate'} ? show : hide">
+		            <li><a th:class="${type eq 'cooperatelist'} ? 'selected'" th:href="${res}+'cooperate/list'">合作列表</a></li>
+	            </ul>
+            </li>
+            <li>
+	            <a href="javascript:;"><i class="icon-contact"></i><span class="nav-label">联系管理</span><label class="icon-arrow"></label></a>
+	            <ul th:class="${selected eq 'contact'} ? show : hide">
+		            <li><a th:class="${type eq 'contactlist'} ? 'selected'" th:href="${res}+'contact/list'">联系列表</a></li>
+	            </ul>
+            </li>
+            <li>
+	            <a href="javascript:;"><i class="icon-teacher"></i><span class="nav-label">师资管理</span><label class="icon-arrow"></label></a>
+	            <ul th:class="${selected eq 'teacher'} ? show : hide">
+		            <li><a th:class="${type eq 'teacherlist'} ? 'selected'" th:href="${res}+'teacher/list'">师资列表</a></li>
+	            </ul>
+            </li>
+            <li>
+	            <a href="javascript:;"><i class="icon-course"></i><span class="nav-label">课程管理</span><label class="icon-arrow"></label></a>
+	            <ul th:class="${selected eq 'course'} ? show : hide">
+		            <li><a th:class="${type eq 'courselist'} ? 'selected'" th:href="${res}+'course/list'">课程列表</a></li>
+	            </ul>
+            </li>
+            <li>
+	            <a href="javascript:;"><i class="icon-upload"></i><span class="nav-label">上传资源</span><label class="icon-arrow"></label></a>
+	            <ul class="hide">
+		            <li><a href="javascript:;">图片管理</a></li>
+		            <li><a href="javascript:;">文件管理</a></li>
+	            </ul>
+            </li>
+            <li>
+	            <a href="javascript:;"><i class="icon-system"></i><span class="nav-label">系统管理</span><label class="icon-arrow"></label></a>
+	            <ul class="hide">
+		            <li><a href="javascript:;">权限管理</a></li>
+	            </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
